@@ -2,10 +2,13 @@ package com.example.administrator.percenttest;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.MarginLayoutParams;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -19,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends Activity implements View.OnClickListener{
+public class MainActivity extends Activity implements View.OnClickListener {
 
     private HomeAdapter adapter;
     private M m;
@@ -29,44 +32,44 @@ public class MainActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView recycler = (RecyclerView)findViewById(R.id.RecyclerView);
-        recycler.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new HomeAdapter(null);
         LayoutInflater inflater = LayoutInflater.from(this);
-        View head1 = inflater.inflate(R.layout.head1,null);
-        View head2 = inflater.inflate(R.layout.head2,null);
-        View head3 = inflater.inflate(R.layout.bar,null);
-        adapter.addHeaderView(head1);
-        adapter.addHeaderView(head2);
-        adapter.addHeaderView(head3);
+        View head1 = inflater.inflate(R.layout.head1, null);
+        View head2 = inflater.inflate(R.layout.head2, null);
+        View head3 = inflater.inflate(R.layout.bar, null);
 
-        head3.findViewById(R.id.tv1).setOnClickListener(this);
-        head3.findViewById(R.id.tv2).setOnClickListener(this);
-        head3.findViewById(R.id.tv3).setOnClickListener(this);
+        FlowLayout flowlayout = (FlowLayout) findViewById(R.id.flowlayout);
 
-        recycler.setAdapter(adapter);
+        List<String> list = new ArrayList();
+        list.add("123");
+        list.add("456");
+        list.add("789");
+        list.add("123456");
+        list.add("4512871");
+        list.add("12");
+        list.add("488132659");
+        list.add("154813317");
+        list.add("789");
+        for (String str : list) {
+            View view = inflater.inflate(R.layout.head1, null);
+            final TextView tv = (TextView) view.findViewById(R.id.id_num);
+            tv.setText(str);
+            ImageView iv = (ImageView) view.findViewById(R.id.iv_del);
+            iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(MainActivity.this, "tv=" + tv.getText().toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
-        m = new M();
+            MarginLayoutParams params = new MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(15, 15, 15, 15);
+            view.setLayoutParams(params);
+            flowlayout.addView(view);
+            // 务必要加这句
+            flowlayout.requestLayout();
 
-        List<A> list = new ArrayList<>();
-        for (int i=1;i<=20;i++){
-            list.add(new A("A="+i));
         }
-        m.setaList(list);
 
-        List<B> list2 = new ArrayList<>();
-        for (int i=1;i<=20;i++){
-            list2.add(new B("B="+i));
-        }
-        m.setbList(list2);
-
-        List<C> list3 = new ArrayList<>();
-        for (int i=1;i<=20;i++){
-            list3.add(new C("C="+i));
-        }
-        m.setcList(list3);
-
-        //adapter.addData(m.getaList());
 
     }
 
@@ -75,7 +78,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.tv1:
                 List<P> list1 = new ArrayList<>();
-                for(A a:m.getaList()){
+                for (A a : m.getaList()) {
                     P p = new P(P.TEXT);
                     p.setA(a);
                     list1.add(p);
@@ -84,7 +87,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.tv2:
                 List<P> list2 = new ArrayList<>();
-                for(B a:m.getbList()){
+                for (B a : m.getbList()) {
                     P p = new P(P.IMG);
                     p.setB(a);
                     list2.add(p);
@@ -93,7 +96,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.tv3:
                 List<P> list3 = new ArrayList<>();
-                for(C a:m.getcList()){
+                for (C a : m.getcList()) {
                     P p = new P(P.VIDEO);
                     p.setC(a);
                     list3.add(p);
@@ -107,7 +110,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     public class HomeAdapter extends BaseMultiItemQuickAdapter<P, BaseViewHolder> {
         public HomeAdapter(List data) {
-            super( data);
+            super(data);
             addItemType(P.TEXT, R.layout.item);
             addItemType(P.IMG, R.layout.item2);
             addItemType(P.VIDEO, R.layout.item3);
@@ -120,10 +123,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     helper.setText(R.id.id_num, item.getA().getA_name());
                     break;
                 case P.IMG:
-                    helper.setText(R.id.id_num,  item.getB().getB_name());
+                    helper.setText(R.id.id_num, item.getB().getB_name());
                     break;
                 case P.VIDEO:
-                    helper.setText(R.id.id_num,  item.getC().getC_name());
+                    helper.setText(R.id.id_num, item.getC().getC_name());
                     break;
                 default:
                     break;
