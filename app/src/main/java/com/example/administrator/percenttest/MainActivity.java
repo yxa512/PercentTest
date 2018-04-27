@@ -40,7 +40,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         FlowLayout flowlayout = (FlowLayout) findViewById(R.id.flowlayout);
 
         List<String> list = new ArrayList();
-        list.add("123");
+        list.add("12345");
         list.add("456");
         list.add("789");
         list.add("123456");
