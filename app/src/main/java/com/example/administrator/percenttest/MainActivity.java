@@ -1,14 +1,10 @@
 package com.example.administrator.percenttest;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.DatePicker;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -22,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener, DatePicker.OnDateChangedListener {
 
     private HomeAdapter adapter;
     private M m;
@@ -32,45 +28,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View head1 = inflater.inflate(R.layout.head1, null);
-        View head2 = inflater.inflate(R.layout.head2, null);
-        View head3 = inflater.inflate(R.layout.bar, null);
 
-        FlowLayout flowlayout = (FlowLayout) findViewById(R.id.flowlayout);
-
-        List<String> list = new ArrayList();
-        list.add("123457896");
-        list.add("99733");
-        list.add("456");
-        list.add("789");
-        list.add("123456");
-        list.add("4512871");
-        list.add("12");
-        list.add("488132659");
-        list.add("154813317");
-        list.add("789");
-        for (String str : list) {
-            View view = inflater.inflate(R.layout.head1, null);
-            final TextView tv = (TextView) view.findViewById(R.id.id_num);
-            tv.setText(str);
-            ImageView iv = (ImageView) view.findViewById(R.id.iv_del);
-            iv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(MainActivity.this, "tv=" + tv.getText().toString(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            MarginLayoutParams params = new MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(15, 15, 15, 15);
-            view.setLayoutParams(params);
-            flowlayout.addView(view);
-            // 务必要加这句
-            flowlayout.requestLayout();
-
-        }
-
+        findViewById(R.id.button).setOnClickListener(this);
+        findViewById(R.id.jump).setOnClickListener(this);
 
     }
 
@@ -104,9 +64,28 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
                 adapter.setNewData(list3);
                 break;
+            case R.id.button:
+
+                break;
+            case R.id.jump:
+                startActivity(new Intent(this, Test1.class));
+                break;
             default:
                 break;
         }
+    }
+
+    private void restartApplication() {
+        final Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        android.os.Process.killProcess(android.os.Process.myPid());
+
+    }
+
+    @Override
+    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
     }
 
     public class HomeAdapter extends BaseMultiItemQuickAdapter<P, BaseViewHolder> {

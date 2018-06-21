@@ -1,22 +1,31 @@
 package com.example;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class MyClass {
 
     public static void main(String arg[]) {
 
-        System.out.print(getWeek("yyyy-MM-dd", "2017-06-19"));
-        System.out.print(getWeek("yyyy-MM-dd", "2017-06-20"));
-        System.out.print(getWeek("yyyy-MM-dd", "2017-06-21"));
-        System.out.print(getWeek("yyyy-MM-dd", "2017-06-22"));
-        System.out.print(getWeek("yyyy-MM-dd", "2017-06-23"));
-        System.out.print(getWeek("yyyy-MM-dd", "2017-06-24"));
-        System.out.print(getWeek("yyyy-MM-dd", "2017-06-25"));
-        System.out.print(getWeek("yyyy-MM-dd", "2017-06-26"));
-        System.out.print(getWeek("yyyy-MM-dd", "2017-06-27"));
+        List<String> lists = new ArrayList<>();
+        lists.add("a");
+        lists.add("b");
+        lists.add("c");
+
+        System.out.println(judge("-0.11"));
+    }
+
+    public static String judge(String str) {
+        try {
+            double d=Double.valueOf(str);
+            return (int)(Math.abs(d)*100)+"%";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

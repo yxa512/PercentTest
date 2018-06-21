@@ -8,17 +8,28 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <!--<android.support.v7.widget.RecyclerView
-        android:id="@+id/RecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+   <TextView
+       android:id="@+id/tv_title"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textSize="20sp"
+       android:layout_margin="30dp"
+       android:textColor="@color/colorPrimary"
+       android:text="打补丁成功 版本2"/>
 
-    </android.support.v7.widget.RecyclerView>-->
+   <Button
+       android:id="@+id/button"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="拉取补丁"
+       android:gravity="center"/>
 
-    <com.example.administrator.percenttest.FlowLayout
-        android:id="@+id/flowlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.example.administrator.percenttest.FlowLayout>
+   <Button
+       android:id="@+id/jump"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="跳转"
+       android:gravity="center"/>
 
 </LinearLayout>
 

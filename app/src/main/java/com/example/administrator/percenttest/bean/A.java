@@ -20,4 +20,8 @@ public class A{
     public void setA_name(String a_name) {
         A_name = a_name;
     }
+
+    protected void dw(){
+
+    }
 }
