@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -22,6 +23,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Date
 
     private HomeAdapter adapter;
     private M m;
+    private TextView test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Date
                 adapter.setNewData(list3);
                 break;
             case R.id.button:
-
+                test.setText("nihao");
                 break;
             case R.id.jump:
                 startActivity(new Intent(this, Test1.class));
