@@ -1,69 +1,37 @@
 package com.example;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 public class MyClass {
 
     public static void main(String arg[]) {
 
-        List<String> lists = new ArrayList<>();
-        lists.add("a");
-        lists.add("b");
-        lists.add("c");
+        StringBuffer sqlSB = new StringBuffer();
+        sqlSB.append(" SELECT  DISTINCT  (SELECT  ATTR_VAL \n");
+        sqlSB.append("                                       FROM  GOM_ORDER_CAP \n");
+        sqlSB.append("                                     WHERE  ORDER_ID  =  T.ORDER_ID \n");
+        sqlSB.append("                                         AND  ATTR_ID  =  'SuoSJF_ID' \n");
+        sqlSB.append("                                         AND  ROWNUM  =  1)  SUOSJF_ID, \n");
+        sqlSB.append("                    (SELECT  ATTR_VAL \n");
+        sqlSB.append("                                       FROM  GOM_ORDER_CAP \n");
+        sqlSB.append("                                     WHERE  ORDER_ID  =  T.ORDER_ID \n");
+        sqlSB.append("                                         AND  ATTR_ID  =  'SuoSJF' \n");
+        sqlSB.append("                                         AND  ROWNUM  =  1)  SUOSJF \n");
+        sqlSB.append("     FROM  GOM_WO  T \n");
+        sqlSB.append("     JOIN  GOM_ORDER  O \n");
+        sqlSB.append("         ON  T.ORDER_ID  =  O.ORDER_ID \n");
+        sqlSB.append("     LEFT  JOIN  GOM_PS_2_WO_S  PWS \n");
+        sqlSB.append("         ON  T.PS_ID  =  PWS.ID \n");
+        sqlSB.append("     LEFT  JOIN  UOS_TACHE  UT \n");
+        sqlSB.append("         ON  PWS.TACHE_ID  =  UT.ID \n");
+        sqlSB.append("     LEFT  JOIN  GOM_PS_2_ORD_S  PS \n");
+        sqlSB.append("         ON  O.PS_ID  =  PS.ID \n");
+        sqlSB.append("   WHERE  T.WO_STATE  =  ").append("woStates" + "\n");
+        sqlSB.append("       AND  T.DISP_OBJ_ID  = ").append("dispObjId" + "\n");
+        sqlSB.append("       AND  UT.ID  =  ").append("tacheId" + "\n");
+        sqlSB.append("       AND  PS.ACT_TYPE  IN  ('").append("orderActType" + "') \n");
 
-        System.out.println(judge("-0.11"));
+        System.out.println(sqlSB.toString());
+
     }
 
-    public static String judge(String str) {
-        try {
-            double d=Double.valueOf(str);
-            return (int)(Math.abs(d)*100)+"%";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * 得到一个时间延后或前移几天的时间,nowdate为时间,delay为前移或后延的天数
-     */
-    public static String getNextDay(String f, String nowdate, int delay) {
-        try {
-            SimpleDateFormat format = new SimpleDateFormat(f);
-            String mdate = "";
-            Date d = format.parse(nowdate);
-            long myTime = (d.getTime() / 1000) + delay * 24 * 60 * 60;
-            d.setTime(myTime * 1000);
-            mdate = format.format(d);
-            return mdate;
-        } catch (Exception e) {
-            return "";
-        }
-    }
-
-
-    /**
-     * 根据一个日期，返回是星期几的字符串
-     *
-     * @param sdate
-     * @return
-     */
-    public static int getWeek(String f, String sdate) {
-        // 再转换为时间
-        try {
-            SimpleDateFormat format = new SimpleDateFormat(f);
-            Date d = format.parse(sdate);
-            Calendar c = Calendar.getInstance();
-            c.setTime(d);
-            return c.get(Calendar.DAY_OF_WEEK);
-        } catch (Exception ex) {
-
-        }
-        return -1;
-    }
 
 }
