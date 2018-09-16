@@ -78,7 +78,7 @@
                 android:visibility="gone" />
 
             <ImageView
-                android:id="@+id/iv_center"
+                android:id="@+id/iv_title_center"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:visibility="gone" />
